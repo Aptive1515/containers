@@ -6,11 +6,12 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 18:06:51 by aptive            #+#    #+#             */
-/*   Updated: 2023/01/30 16:09:11 by aptive           ###   ########.fr       */
+/*   Updated: 2023/01/30 16:45:24 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_utils.hpp"
+#include "../includes/ft_vector.hpp"
 #include <vector>
 #include <algorithm>    // std::equal
 
@@ -30,7 +31,6 @@ bool mypredicate (int i, int j) {
 
 int main()
 {
-
 	std::cout << "+----------------------------------------------------------------+" << std::endl;
 	std::cout << "|                        TEST FT_UTILS                           |" << std::endl;
 	std::cout << "+----------------------------------------------------------------+" << std::endl;
@@ -88,12 +88,6 @@ int main()
 	std::cout << std::endl;
 
 
-
-
-
-
-
-
 	std::cout << "|************************** TEST EQUAL **************************|" << std::endl;
 
 	int myints[] = {20,40,60,80,100};               //   myints: 20 40 60 80 100
@@ -113,7 +107,6 @@ int main()
 		std::cout << RED <<"	Test Predicate :				KO\n" << END;
 	else
 		std::cout << GREEN <<"	Test Predicate :				OK\n" << END;
-
 
 
 	std::cout << std::endl;
@@ -140,10 +133,8 @@ int main()
 		std::cout << RED <<"	Test double :					KO\n" << END;
 
 
-
 	std::cout << std::endl;
 	std::cout << "|************************* ENABLE IF ****************************|" << std::endl;
-
 
 	short int i = 1;    // code does not compile if type of i is not integral
 
@@ -160,7 +151,9 @@ int main()
 
 
 
-
+	std::cout << "+----------------------------------------------------------------+" << std::endl;
+	std::cout << "|                        TEST FT_VECTOR                          |" << std::endl;
+	std::cout << "+----------------------------------------------------------------+" << std::endl;
 
 
 
