@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 18:06:51 by aptive            #+#    #+#             */
-/*   Updated: 2023/01/28 17:38:07 by aptive           ###   ########.fr       */
+/*   Updated: 2023/01/30 16:09:11 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int main()
 		if (product3_ft.first == product3.first && product3_ft.second == product3.second)
 			std::cout << GREEN << "	Test copy :					OK" << END << std::endl;
 		else
-			std::cout << RED << "	Test copy :					Not OK" << END << std::endl;
+			std::cout << RED << "	Test copy :					KO" << END << std::endl;
 	// Test operator = attribut -----------------------------------------------------------
 
 		product3.first = "shoes";                  // the type of first is string
@@ -76,37 +76,83 @@ int main()
 		if (product3_ft.first == product3.first && product3_ft.second == product3.second)
 			std::cout << GREEN << "	Test operator = direct attribut :		OK" << END << std::endl;
 		else
-			std::cout << RED << "	Test operator = direct attribut :		Not OK" << END << std::endl;
+			std::cout << RED << "	Test operator = direct attribut :		KO" << END << std::endl;
 
 	// Test operator = attribut -----------------------------------------------------------
 		ft::pair <std::string,double> product4_ft = product2_ft;          // copy constructor
 		if (product2_ft.first == product4_ft.first && product2_ft.second == product4_ft.second)
 			std::cout << GREEN << "	Test operator = attribut :			OK" << END << std::endl;
 		else
-			std::cout << RED << "	Test operator = attribut :			Not OK" << END << std::endl;
+			std::cout << RED << "	Test operator = attribut :			KO" << END << std::endl;
 
-	std::cout << "|********************** END TEST PAIR ***************************|" << std::endl;
-	std::cout << std::endl << std::endl;
+	std::cout << std::endl;
+
+
+
+
+
+
+
+
 	std::cout << "|************************** TEST EQUAL **************************|" << std::endl;
-	std::cout << "|********************** END TEST EQUAL **************************|" << std::endl;
 
 	int myints[] = {20,40,60,80,100};               //   myints: 20 40 60 80 100
 	std::vector<int>myvector (myints,myints+5);     // myvector: 20 40 60 80 100
 
-	// using default comparison:
-	if ( ft::equal (myvector.begin(), myvector.end(), myints) )
-		std::cout << "The contents of both sequences are equal.\n";
+	// using default comparison------------------------------------------------------------
+	if ( std::equal (myvector.begin(), myvector.end(), myints)
+		&& ft::equal (myvector.begin(), myvector.end(), myints))
+		std::cout << GREEN <<"	Test default comparaison :			OK\n" << END;
 	else
-		std::cout << "The contents of both sequences differ.\n";
+		std::cout << RED <<"	Test default comparaison :			KO\n" << END;
 
+	// using predicate comparison flase ---------------------------------------------------
 	myvector[3]=81;                                 // myvector: 20 40 60 81 100
-
-	// using predicate comparison:
-	if ( ft::equal (myvector.begin(), myvector.end(), myints, mypredicate) )
-		std::cout << "The contents of both sequences are equal.\n";
+	if ( std::equal (myvector.begin(), myvector.end(), myints, mypredicate)
+		&& ft::equal (myvector.begin(), myvector.end(), myints, mypredicate))
+		std::cout << RED <<"	Test Predicate :				KO\n" << END;
 	else
-		std::cout << "The contents of both sequences differ.\n";
+		std::cout << GREEN <<"	Test Predicate :				OK\n" << END;
 
+
+
+	std::cout << std::endl;
+	std::cout << "|************************* IS_INTEGRAL **************************|" << std::endl;
+
+	if (ft::is_integral<char>::value)
+		std::cout << GREEN <<"	Test Char :					OK\n" << END;
+	else
+		std::cout << RED <<"	Test Char :					KO\n" << END;
+
+	if (ft::is_integral<int>::value)
+		std::cout << GREEN <<"	Test int :					OK\n" << END;
+	else
+		std::cout << RED <<"	Test int :					KO\n" << END;
+
+	if (!ft::is_integral<float>::value)
+		std::cout << GREEN <<"	Test float :					OK\n" << END;
+	else
+		std::cout << RED <<"	Test float :					KO\n" << END;
+
+	if (!ft::is_integral<double>::value)
+		std::cout << GREEN <<"	Test double :					OK\n" << END;
+	else
+		std::cout << RED <<"	Test double :					KO\n" << END;
+
+
+
+	std::cout << std::endl;
+	std::cout << "|************************* ENABLE IF ****************************|" << std::endl;
+
+
+	short int i = 1;    // code does not compile if type of i is not integral
+
+	if (ft::is_odd(i))
+		std::cout << GREEN <<"	Test enable if :				OK\n" << END;
+	else
+		std::cout << RED <<"	Test double :					KO\n" << END;
+
+	std::cout << std::endl;
 	std::cout << "+----------------------------------------------------------------+" << std::endl;
 	std::cout << "|                        END FT_UTILS                            |" << std::endl;
 	std::cout << "+----------------------------------------------------------------+" << std::endl;

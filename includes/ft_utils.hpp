@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:57:53 by tdelauna          #+#    #+#             */
-/*   Updated: 2023/01/28 17:33:20 by aptive           ###   ########.fr       */
+/*   Updated: 2023/01/30 15:57:00 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ This is asked so you can discover SFINAE.
 
 # include <iostream>
 # include <string>
+# include <typeinfo>     // typeid
 
 
 namespace ft
@@ -98,11 +99,6 @@ namespace ft
 		bool operator>= (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
 	{ return !(lhs<rhs); }
 
-	// +---------------------------------------------------------------------------------+
-	// |                                  END PAIR                                       |
-	// +---------------------------------------------------------------------------------+
-
-
 
 	// +---------------------------------------------------------------------------------+
 	// |                                 MAKE PAIR                                       |
@@ -152,8 +148,93 @@ namespace ft
 	};
 
 	// +---------------------------------------------------------------------------------+
-	// |                                 END EQUAL                                       |
+	// |                                 REMOVE_CV                                       |
 	// +---------------------------------------------------------------------------------+
+
+	template<class T>
+	struct remove_cv{typedef T type;};
+
+	template<class T>
+	struct remove_cv<const T>{typedef T type;};
+
+	template<class T>
+	struct remove_cv<volatile T>{typedef T type;};
+
+	template<class T>
+	struct remove_cv<const volatile T>{typedef T type;};
+
+
+	// +---------------------------------------------------------------------------------+
+	// |                                IS_INTEGRAL                                      |
+	// +---------------------------------------------------------------------------------+
+
+	struct false_type {
+		static const bool	value = false;
+		operator bool() const { return value; };
+	};
+
+	struct true_type {
+		static const bool	value = true;
+		operator bool() const { return value; };
+	};
+
+	template <typename T> struct is_integral_base : ft::false_type {};
+	template <> struct is_integral_base<bool> : ft::true_type {};
+	template <> struct is_integral_base<char> : ft::true_type {};
+	template <> struct is_integral_base<wchar_t> : ft::true_type {};
+	template <> struct is_integral_base<short> : ft::true_type {};
+	template <> struct is_integral_base<int> : ft::true_type {};
+	template <> struct is_integral_base<long> : ft::true_type {};
+	template <> struct is_integral_base<long long> : ft::true_type {};
+	template <> struct is_integral_base<unsigned char> : ft::true_type {};
+	template <> struct is_integral_base<unsigned short int> : ft::true_type {};
+	template <> struct is_integral_base<unsigned int> : ft::true_type {};
+	template <> struct is_integral_base<unsigned long int> : ft::true_type {};
+	template <> struct is_integral_base<unsigned long long int> : ft::true_type {};
+
+	template<typename T>
+	struct is_integral : is_integral_base<typename ft::remove_cv<T>::type > {};
+
+
+	// +---------------------------------------------------------------------------------+
+	// |                                   ENABLE IF                                     |
+	// +---------------------------------------------------------------------------------+
+
+	template<bool Cond, class T = void>
+	struct enable_if {};
+
+	template<class T>
+	struct enable_if<true, T> { typedef T type; };
+
+	// 1. the return type (bool) is only valid if T is an integral type:
+	template <class T>
+	typename ft::enable_if<ft::is_integral<T>::value,bool>::type
+	is_odd (T i) {return bool(i%2);}
+
+	// 2. the second template argument is only valid if T is an integral type:
+	template <class T>
+	typename ft::enable_if<ft::is_integral<T>::value,bool>::type
+	is_even (T i) {return !bool(i%2);}
+
+
+	// +---------------------------------------------------------------------------------+
+	// |                                    ITERATOR                                     |
+	// +---------------------------------------------------------------------------------+
+	template <class Iterator>
+	class iterator_traits
+	{
+		typedef typename Iterator::difference_type		difference_type;
+		typedef typename Iterator::value_type			value_type;
+		typedef typename Iterator::pointer				pointer;
+		typedef typename Iterator::reference			reference;
+		typedef typename Iterator::iterator_category	iterator_category;
+	};
+
+	template <class T>
+	class iterator_traits<T*>;
+
+	template <class T>
+	class iterator_traits<const T*>;
 
 };
 
