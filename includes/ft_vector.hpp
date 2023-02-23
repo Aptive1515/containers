@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:12:39 by aptive            #+#    #+#             */
-/*   Updated: 2023/01/30 17:07:58 by aptive           ###   ########.fr       */
+/*   Updated: 2023/01/30 18:25:11 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <iostream>
 # include <cstdlib>
+# include "./ft_iterator.tpp"
 
 namespace
 {

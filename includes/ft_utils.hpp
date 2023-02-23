@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:57:53 by tdelauna          #+#    #+#             */
-/*   Updated: 2023/01/30 15:57:00 by aptive           ###   ########.fr       */
+/*   Updated: 2023/01/30 18:49:08 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,24 +217,7 @@ namespace ft
 	is_even (T i) {return !bool(i%2);}
 
 
-	// +---------------------------------------------------------------------------------+
-	// |                                    ITERATOR                                     |
-	// +---------------------------------------------------------------------------------+
-	template <class Iterator>
-	class iterator_traits
-	{
-		typedef typename Iterator::difference_type		difference_type;
-		typedef typename Iterator::value_type			value_type;
-		typedef typename Iterator::pointer				pointer;
-		typedef typename Iterator::reference			reference;
-		typedef typename Iterator::iterator_category	iterator_category;
-	};
 
-	template <class T>
-	class iterator_traits<T*>;
-
-	template <class T>
-	class iterator_traits<const T*>;
 
 };
 
